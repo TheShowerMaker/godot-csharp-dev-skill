@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Claude Code local settings (per-user, not distributable)
+.claude/
+
+# Codex / editor local state
+.codex/

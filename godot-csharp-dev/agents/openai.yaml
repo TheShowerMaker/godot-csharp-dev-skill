@@ -1,0 +1,3 @@
+interface:
+  display_name: "Godot C# Dev"
+  short_description: "Godot 4.x (.NET) C# 开发规范"
