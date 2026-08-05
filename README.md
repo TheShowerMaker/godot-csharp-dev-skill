@@ -78,7 +78,6 @@ ls ~/.claude/skills/godot-csharp-dev/       # Claude Code
 ├── README.md                          # 本文件
 ├── LICENSE                            # MIT
 ├── install.sh                         # 跨工具安装脚本
-├── doc.md                             # 原始规范文档（v2.2 完整版）
 └── godot-csharp-dev/                  # ← Skill 本体
     ├── SKILL.md                       # 入口：5 红线 + 工作流 + 清单
     ├── agents/openai.yaml             # Codex UI 元数据
@@ -93,8 +92,6 @@ ls ~/.claude/skills/godot-csharp-dev/       # Claude Code
 ## 维护
 
 修改 `godot-csharp-dev/` 内的文件 → 提交 → 推送 → 在 Codex / Claude Code 中重装即可。
-
-`doc.md` 是规范源文档；`SKILL.md` 与 `references/` 是从它提炼出的可加载格式。两者保持同步即可。
 
 ## License
 

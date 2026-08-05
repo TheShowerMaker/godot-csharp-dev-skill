@@ -6,3 +6,6 @@
 
 # Codex / editor local state
 .codex/
+
+# Source spec doc — kept local only, not distributed
+doc.md
