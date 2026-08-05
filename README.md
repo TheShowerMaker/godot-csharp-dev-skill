@@ -1,36 +1,24 @@
-# Godot C# Dev Skill
+# godot-csharp-dev-skill
 
-Godot 4.x (.NET) C# 项目开发规范，封装为通用 AI Skill。同一份 SKILL.md 同时兼容 **Codex** 与 **Claude Code**。
+一个 [Codex](https://github.com/openai/codex) 与 [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) 通用的 AI skill，给 Godot 4.x (.NET) C# 项目提供开发规范约束。
 
-## 触发场景
+同一份 `SKILL.md` 同时被两个工具加载，无需维护两套规则。
 
-当你在 Godot 4 C# 项目中做以下事情时，skill 会自动加载：
+## 这是什么
 
-- 编写 / 审查 / 重构 C# 脚本
-- 设计场景结构、操作节点
-- 处理信号、异步、多线程
-- 使用 godot-ai MCP 工具
-- 配置美术资产与 Git LFS
+仓库只发布一个 skill：`godot-csharp-dev`。安装后，当你在 Godot 4 C# 项目里写/审查代码、设计场景、配置资产时，Codex 和 Claude Code 会自动加载它，强制执行：
 
-## 核心内容
+- 5 条核心红线（节点引用、动态创建、场景文件、信号调用、异步操作）
+- 8 条底层工程原则（不保留向后兼容、最简单实现、垂直切片、模块化、优先成熟库、复用现有依赖、长期主义、参考成熟方案）
+- 组合模式架构 / 数据驱动 / 主线程安全
 
-- **5 条核心红线**：节点引用、动态创建、场景文件、信号调用、异步操作
-- **组合模式架构**：组件设计、通信规范、数据驱动
-- **特殊机制**：节点引用策略、生命周期、主线程安全
-- **MCP 编辑器控制**：godot-ai 工具职责边界
-- **资产管理**：Git LFS、`.gitignore`、四大铁律
+规则本身在 [`godot-csharp-dev/SKILL.md`](godot-csharp-dev/SKILL.md) 与 `references/` 下，不在本 README 重复。
 
 ## 安装
 
-### Codex（自动安装）
+### Codex
 
-把本仓库推到 GitHub 后，在 Codex 中说：
-
-> 安装 skill：`TheShowerMaker/godot-csharp-dev-skill` 路径 `godot-csharp-dev`
-
-Codex 会调用内置的 `skill-installer`，自动下载并安装到 `~/.codex/skills/godot-csharp-dev/`。
-
-或手动调用脚本：
+Codex 自带 skill-installer，一句话安装：
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
@@ -38,60 +26,48 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
   --path godot-csharp-dev
 ```
 
-### Claude Code
+或在 Codex 对话里说「安装 skill `TheShowerMaker/godot-csharp-dev-skill` 路径 `godot-csharp-dev`」，由它自己调脚本。
 
-Claude Code 没有 GitHub 自动安装机制，使用仓库内的 `install.sh`：
+### Claude Code
 
 ```bash
 git clone https://github.com/TheShowerMaker/godot-csharp-dev-skill.git
 cd godot-csharp-dev-skill
-./install.sh                  # 默认安装到 ~/.claude/skills/
-./install.sh --claude         # 显式指定 Claude Code
-./install.sh --codex          # 显式指定 Codex
-./install.sh --both           # 两个都装
-./install.sh --dest /custom/path   # 自定义目标目录的父目录
+./install.sh                  # 自动检测已安装的工具，装到对应目录
+./install.sh --both           # 显式同时装到 ~/.claude/skills/ 和 ~/.codex/skills/
+./install.sh --dest ~/my/dir  # 装到自定义父目录
 ```
 
-### 手动复制
+### 验证
 
 ```bash
-git clone https://github.com/TheShowerMaker/godot-csharp-dev-skill.git
-cp -r godot-csharp-dev-skill/godot-csharp-dev ~/.claude/skills/   # Claude Code
-cp -r godot-csharp-dev-skill/godot-csharp-dev ~/.codex/skills/    # Codex
+ls ~/.codex/skills/godot-csharp-dev/SKILL.md
+ls ~/.claude/skills/godot-csharp-dev/SKILL.md
 ```
 
-## 验证
-
-安装后启动 Codex 或 Claude Code，问一句 Godot C# 相关问题（如"帮我写一个 PlayerController"），skill 应被自动触发。
-
-也可直接查看安装结果：
-
-```bash
-ls ~/.codex/skills/godot-csharp-dev/        # Codex
-ls ~/.claude/skills/godot-csharp-dev/       # Claude Code
-```
-
-## 结构
+## 仓库结构
 
 ```
 .
-├── README.md                          # 本文件
-├── LICENSE                            # MIT
-├── install.sh                         # 跨工具安装脚本
-└── godot-csharp-dev/                  # ← Skill 本体
-    ├── SKILL.md                       # 入口：5 红线 + 工作流 + 清单
-    ├── agents/openai.yaml             # Codex UI 元数据
-    └── references/                    # 详细章节（按需加载）
-        ├── coding-style.md
-        ├── architecture.md
-        ├── special-mechanisms.md
-        ├── mcp-editor.md
-        └── assets-git.md
+├── godot-csharp-dev/         # skill 本体
+│   ├── SKILL.md              # 入口：红线 + 原则 + 工作流 + 检查清单
+│   ├── agents/openai.yaml    # Codex UI 显示元数据
+│   └── references/           # 详细章节，按需加载
+│       ├── coding-style.md
+│       ├── architecture.md
+│       ├── special-mechanisms.md
+│       ├── mcp-editor.md
+│       └── assets-git.md
+├── install.sh                # Claude Code / 跨工具安装脚本
+├── LICENSE                   # MIT
+└── README.md
 ```
 
-## 维护
+## 修改与发布
 
-修改 `godot-csharp-dev/` 内的文件 → 提交 → 推送 → 在 Codex / Claude Code 中重装即可。
+改 `godot-csharp-dev/` 下任意文件 → `git commit` → `git push`。已安装的用户重跑 install 脚本即可更新。
+
+`agents/openai.yaml` 修改 `display_name` / `short_description` 只影响 Codex UI 展示，不影响触发逻辑——触发逻辑由 `SKILL.md` 的 frontmatter `description` 字段决定。
 
 ## License
 
