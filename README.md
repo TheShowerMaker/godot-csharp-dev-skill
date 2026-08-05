@@ -26,7 +26,7 @@ Godot 4.x (.NET) C# 项目开发规范，封装为通用 AI Skill。同一份 SK
 
 把本仓库推到 GitHub 后，在 Codex 中说：
 
-> 安装 skill：`<owner>/<repo>` 路径 `godot-csharp-dev`
+> 安装 skill：`TheShowerMaker/godot-csharp-dev-skill` 路径 `godot-csharp-dev`
 
 Codex 会调用内置的 `skill-installer`，自动下载并安装到 `~/.codex/skills/godot-csharp-dev/`。
 
@@ -34,7 +34,7 @@ Codex 会调用内置的 `skill-installer`，自动下载并安装到 `~/.codex/
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
-  --repo <owner>/<repo> \
+  --repo TheShowerMaker/godot-csharp-dev-skill \
   --path godot-csharp-dev
 ```
 
@@ -43,8 +43,8 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 Claude Code 没有 GitHub 自动安装机制，使用仓库内的 `install.sh`：
 
 ```bash
-git clone https://github.com/<owner>/<repo>.git
-cd <repo>
+git clone https://github.com/TheShowerMaker/godot-csharp-dev-skill.git
+cd godot-csharp-dev-skill
 ./install.sh                  # 默认安装到 ~/.claude/skills/
 ./install.sh --claude         # 显式指定 Claude Code
 ./install.sh --codex          # 显式指定 Codex
@@ -55,9 +55,9 @@ cd <repo>
 ### 手动复制
 
 ```bash
-git clone https://github.com/<owner>/<repo>.git
-cp -r <repo>/godot-csharp-dev ~/.claude/skills/   # Claude Code
-cp -r <repo>/godot-csharp-dev ~/.codex/skills/    # Codex
+git clone https://github.com/TheShowerMaker/godot-csharp-dev-skill.git
+cp -r godot-csharp-dev-skill/godot-csharp-dev ~/.claude/skills/   # Claude Code
+cp -r godot-csharp-dev-skill/godot-csharp-dev ~/.codex/skills/    # Codex
 ```
 
 ## 验证
